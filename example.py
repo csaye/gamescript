@@ -8,4 +8,5 @@ game.caption('example project')
 while True:
     game.tick() # tick game
     game.checkquit() # check for quit
+    if game.iskeydown('q'): print('q pressed') # key press
     if game.isupdate(): print('update') # update loop

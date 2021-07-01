@@ -7,6 +7,28 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 
+keyords = {
+    'up': 1073741906,
+    'right': 1073741903,
+    'down': 1073741905,
+    'left': 1073741904,
+    'lshift': 1073742049, 'rshift': 1073742053,
+    'lalt': 1073742050, 'ralt': 1073742054,
+    'lcommand': 1073742051, 'rcommand': 1073742055,
+    'control': 1073742048,
+    'tab': 9,
+    'enter': 13,
+    'escape': 27,
+    'delete': 8,
+    'capslock': 1073741881
+}
+
+# returns ord of given key
+def keyord(key):
+    if len(key) == 1: return ord(key)
+    if key in keyords: return keyords[key]
+    raise ValueError(f'invalid key: \'{key}\'')
+
 # quits game
 def quitgame():
     pygame.quit()
@@ -61,3 +83,10 @@ class Game:
             if event.type == pygame.QUIT: quitgame()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE: quitgame()
+
+    # checks whether given key is down
+    def iskeydown(self, key):
+        for event in self.events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == keyord(key): return True
+        return False
