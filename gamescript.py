@@ -108,3 +108,10 @@ class Game:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == buttonord(button): return True
         return False
+
+    # returns mouse position on grid
+    def mousepos(self):
+        mousex, mousey = pygame.mouse.get_pos()
+        x = mousex // self.grid
+        y = mousey // self.grid
+        return x, y
