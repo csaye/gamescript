@@ -23,11 +23,22 @@ keyords = {
     'capslock': 1073741881
 }
 
+buttonords = {
+    'left': 1,
+    'middle': 2,
+    'right': 3
+}
+
 # returns ord of given key
 def keyord(key):
     if len(key) == 1: return ord(key)
     if key in keyords: return keyords[key]
     raise ValueError(f'invalid key: \'{key}\'')
+
+# returns ord of given button
+def buttonord(button):
+    if button in buttonords: return buttonords[button]
+    raise ValueError(f'invalid button: \'{button}\'')
 
 # quits game
 def quitgame():
@@ -89,4 +100,11 @@ class Game:
         for event in self.events:
             if event.type == pygame.KEYDOWN:
                 if event.key == keyord(key): return True
+        return False
+
+    # returns whether given mouse button is down
+    def ismousedown(self, button):
+        for event in self.events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == buttonord(button): return True
         return False
