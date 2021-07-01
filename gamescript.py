@@ -14,6 +14,10 @@ def quitgame():
 
 # game class
 class Game:
+    clock = pygame.time.Clock()
+    events = []
+    frame = 0
+
     def __init__(self, grid=16, width=32, height=32):
         # initialize params
         self.grid = grid
@@ -39,3 +43,21 @@ class Game:
                 color = self.board[x][y]
                 pygame.draw.rect(self.screen, color, rect)
         pygame.display.update()
+
+    # returns whether game should update
+    def isupdate(self):
+        return self.frame % 60 == 0
+
+    # ticks update clock
+    def tick(self):
+        self.frame += 1
+        self.draw()
+        self.clock.tick(60)
+        self.events = pygame.event.get()
+
+    # checks for quit event
+    def checkquit(self):
+        for event in self.events:
+            if event.type == pygame.QUIT: quitgame()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE: quitgame()
