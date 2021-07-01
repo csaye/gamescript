@@ -77,6 +77,10 @@ class Game:
                 pygame.draw.rect(self.screen, color, rect)
         pygame.display.update()
 
+    # fills board with given color
+    def fill(self, color):
+        self.board = [[color for x in range(self.width)] for y in range(self.height)]
+
     # returns whether game should update
     def isupdate(self):
         return self.frame % 60 == 0
