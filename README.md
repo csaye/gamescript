@@ -2,6 +2,14 @@
 
 A wrapper for common Pygame functions.
 
+## Installation
+
+Download [gamescript.py](gamescript.py) and place it inside your project folder.
+
+If necessary, install dependency package Pygame with `pip install pygame`.
+
+All functionality should be immediately accessible through `import gamescript`.
+
 ## Example
 
 ```py
