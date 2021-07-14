@@ -1,5 +1,7 @@
 # GameScript
 
+<img height="200px" src="https://user-images.githubusercontent.com/27871609/125567645-7fdb20bb-0d43-40a5-b28b-693a7df32f7d.png">
+
 A wrapper for common Pygame functions.
 
 ## Installation
