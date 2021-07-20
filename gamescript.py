@@ -1,5 +1,8 @@
 import pygame, sys
 
+# initialize pygame
+pygame.init()
+
 # colors
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -40,7 +43,7 @@ def buttonord(button):
     if button in buttonords: return buttonords[button]
     raise ValueError(f'invalid button: \'{button}\'')
 
-# quits game
+# quits all processes
 def quitgame():
     pygame.quit()
     sys.exit()
@@ -60,6 +63,9 @@ class Game:
         # initialize board
         self.board = [[black for x in range(width)] for y in range(height)]
 
+        # initialize text
+        self.font = pygame.font.SysFont('Arial', grid)
+
         # initialize screen
         screen_size = (width * grid, height * grid)
         self.screen = pygame.display.set_mode(screen_size)
@@ -75,31 +81,39 @@ class Game:
                 rect = (x * self.grid, y * self.grid, self.grid, self.grid)
                 color = self.board[x][y]
                 pygame.draw.rect(self.screen, color, rect)
-        pygame.display.update()
 
     # fills board with given color
     def fill(self, color):
         self.board = [[color for x in range(self.width)] for y in range(self.height)]
 
+    # writes given text to the screen
+    def write(self, text, color, x, y):
+        text_surface = self.font.render(str(text), False, color)
+        text_pos = (x * self.grid, y * self.grid)
+        self.screen.blit(text_surface, text_pos)
+
+    # updates screen display
+    def display(self):
+        pygame.display.update()
+
     # returns whether game should update
     def isupdate(self):
         return self.frame % 60 == 0
 
-    # ticks update clock
+    # runs a tick update on game
     def tick(self):
         self.frame += 1
-        self.draw()
         self.clock.tick(60)
         self.events = pygame.event.get()
 
-    # checks for quit event
+    # checks for any quit event
     def checkquit(self):
         for event in self.events:
             if event.type == pygame.QUIT: quitgame()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE: quitgame()
 
-    # checks whether given key is down
+    # returns whether given key is down
     def iskeydown(self, key):
         for event in self.events:
             if event.type == pygame.KEYDOWN:
